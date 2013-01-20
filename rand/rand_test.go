@@ -26,20 +26,21 @@ func TestRand(t *testing.T) {
 }
 
 func TestGenKRandomLessN(t *testing.T) {
-	const k = 30
-	const n = 100
-	a := GenKRandomLessN(k, n)
 	// Only check if there's duplicates
 	// TODO: How to check randomness?
-	sort.Ints(a)
-	for i := 1; i < k; i++ {
-		if a[i] == a[i-1] {
-			t.Error("Duplicates found:", a)
-		}
-		if a[i] >= n {
-			t.Error("Got integer larger than n:", a)
+	check := func(a []int, max int) {
+		sort.Ints(a)
+		for i := 1; i < len(a); i++ {
+			if a[i] == a[i-1] {
+				t.Error("Duplicates found:", a)
+			}
+			if a[i] > max {
+				t.Errorf("Got integer larger than %d: %v", max, a)
+			}
 		}
 	}
+	check(GenKRandomLessN(10, 10), 9)
+	check(GenKRandomLessN(30, 100), 99)
 }
 
 func TestShuffleSlice(t *testing.T) {
