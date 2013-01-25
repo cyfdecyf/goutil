@@ -52,8 +52,8 @@ func TestShuffleSlice(t *testing.T) {
 	copy(shf1, seq)
 	copy(shf2, seq)
 
-	Shuffle(IntShuffleSlice(shf1))
-	Shuffle(IntShuffleSlice(shf2))
+	Shuffle(goutil.IntSwapSlice(shf1))
+	Shuffle(goutil.IntSwapSlice(shf2))
 
 	diff := false
 	for i := 0; i < n; i++ {

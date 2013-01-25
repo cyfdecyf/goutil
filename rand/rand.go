@@ -2,6 +2,7 @@
 package rand
 
 import (
+	"github.com/cyfdecyf/goutil"
 	"math/rand"
 	"time"
 )
@@ -39,31 +40,10 @@ func GenKRandomLessN(k, n int) []int {
 	return res
 }
 
-// A type, typically a collection, that satisfies rand.ShuffleInterface can be
-// shuffled by the routines in this package.
-type ShuffleInterface interface {
-	// Len is the number of elements in the collection.
-	Len() int
-	// Swap swaps the elements with indexes i and j.
-	Swap(i, j int)
-}
-
-// IntShuffleSlice attaches the methods of ShuffleInterface to []int.
-type IntShuffleSlice []int
-
-func (p IntShuffleSlice) Len() int      { return len(p) }
-func (p IntShuffleSlice) Swap(i, j int) { p[i], p[j] = p[j], p[i] }
-
-// StringShuffleSlice attaches the methods of ShuffleInterface to []string.
-type StringShuffleSlice []string
-
-func (p StringShuffleSlice) Len() int      { return len(p) }
-func (p StringShuffleSlice) Swap(i, j int) { p[i], p[j] = p[j], p[i] }
-
 // ShuffleN randomly shuffles the first n item in the data slice. It uses
 // Knuth's shuffle algorithm. Panics if n is larger than data.Len()-1 or is
 // negative.
-func ShuffleN(data ShuffleInterface, n int) {
+func ShuffleN(data goutil.SwapInterface, n int) {
 	if n < 0 {
 		panic("ShuffleN with negative n")
 	}
@@ -76,6 +56,6 @@ func ShuffleN(data ShuffleInterface, n int) {
 }
 
 // Shuffle randomly shuffles the all the item in the data slice.
-func Shuffle(data ShuffleInterface) {
+func Shuffle(data goutil.SwapInterface) {
 	ShuffleN(data, data.Len())
 }

@@ -1,8 +1,29 @@
 package goutil
 
 import (
+	"reflect"
 	"testing"
 )
+
+func TestReverseRange(t *testing.T) {
+	arr := []int{1, 2, 3, 4, 5, 6, 7, 8}
+	arr_rev := []int{1, 5, 4, 3, 2, 6, 7, 8}
+
+	ReverseRange(IntSwapSlice(arr_rev), 1, 5)
+	if !reflect.DeepEqual(arr, arr_rev) {
+		t.Error("ReverseRange incorrect, reversed array:", arr_rev)
+	}
+}
+
+func TestReverse(t *testing.T) {
+	arr := []int{1, 2, 3, 4, 5}
+	arr_rev := []int{5, 4, 3, 2, 1}
+
+	Reverse(IntSwapSlice(arr_rev))
+	if !reflect.DeepEqual(arr, arr_rev) {
+		t.Error("Reverse incorrect, reversed array:", arr_rev)
+	}
+}
 
 func TestSequence(t *testing.T) {
 	s := Sequence(1, 2)
